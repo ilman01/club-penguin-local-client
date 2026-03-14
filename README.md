@@ -11,5 +11,5 @@ yarn start
 ```
 Or use the node script:
 ```
-node Run-NewCP-App.js
+node Run-App.js
 ```
