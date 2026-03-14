@@ -2,6 +2,7 @@ const { app, BrowserWindow, autoUpdater } = require("electron");
 const discord_integration = require('./integrations/discord');
 const path = require("path");
 const { Menu } = require("electron");
+const prompt = require("electron-prompt");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) app.quit();
@@ -56,6 +57,20 @@ const createWindow = () => {
     {
       label: "Reload",
       click: () => mainWindow.webContents.reload(),
+    },
+    {
+      label: "Go to URL",
+      click: async () => {
+        url = await prompt({
+          title: "Go to URL",
+          label: "Enter URL:",
+          type: "input"
+        });
+        if (url && !url.startsWith("http")) {
+          url = "https://" + url;
+        }
+        mainWindow.loadURL(url);
+      }
     },
     {
       label: "DevTools",
